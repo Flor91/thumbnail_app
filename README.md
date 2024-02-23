@@ -1,4 +1,6 @@
 # Thumbnail generator
+[![Pre-commit Check](https://github.com/Flor91/thumbnail_app/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/Flor91/thumbnail_app/actions/workflows/pre-commit.yml)
+
 Thumbnail generator App deployed in AWS using Terraform and Github Actions.
 
 We have found a time machine and went back in time! The year is 2000 and social media is just taking off. The hottest thing is a thumbnail generator: you input a big picture and get a small picture as  output.
