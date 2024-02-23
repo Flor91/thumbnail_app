@@ -7,7 +7,6 @@ We have found a time machine and went back in time! The year is 2000 and social 
 
 This is a simple app that generates a thumbnail from a given image. The app is deployed in AWS using the following services:
 
-- S3
 - Lambda
 - API Gateway
 
@@ -17,36 +16,53 @@ This is a simple app that generates a thumbnail from a given image. The app is d
 - AWS CLI
 - Poetry
 
-#### Recommended tools
+#### Other Recommended tools
 
 - tfswitch
+- aws-vault or acp
+
+### How to run
+
+A `MAKEFILE` is provided to simplify the process. The following commands are available:
+
+Available targets:
+  setup                 Setup project
+  create-virtualenv     Create virtual environment
+  create-target-dir     Delete and create target directory
+  generate-lambda-zip   Generate Lambda function ZIP archive
+  init                  Initialize Terraform
+  fmt                   Format Terraform files
+  validate              Validate Terraform files
+  plan-dev              Plan Dev Terraform changes
+  apply-dev             Apply Dev Terraform changes
+  destroy-dev           Destroy Dev Terraform resources
+  plan-prod             Plan Prod Terraform changes
+  apply-prod            Apply Prod Terraform changes
+  destroy-prod          Destroy Prod Terraform resources
+  clean                 Clean up Terraform workspace
+  help                  Show this help.
 
 ## How it works
 
 The app is composed of 3 main components:
-- **API Gateway**: This is the entry point of the app. It receives the image URL and the desired thumbnail size. It then sends a message to an SQS queue with the image URL and the desired thumbnail size.
-- **Lambda**: This is the core of the app. It listens to the SQS queue and processes the messages. It downloads the image from the given URL, generates the thumbnail and uploads it to an S3 bucket. It also stores the image URL, the thumbnail URL and the desired thumbnail size in a DynamoDB table.
-- **S3**: This is used to store the images and the thumbnails.
+- **API Gateway**: This is the entry point of the app. It receives the image binary encoded.
+- **Lambda**: This is the core of the app. It receives the image binary, generates the thumbnail and returns the small sized thumbnail binary.
 - **CloudWatch**: This is used to monitor the app.
 
 ## About the architecture
 ### Strengths
 
-- **Scalability**: The app is designed to be scalable. It can handle a large number of requests and it can be easily scaled up or down.
-- **Reliability**: The app is designed to be reliable. It can handle failures and it can be easily recovered from failures.
-- **Performance**: The app is designed to be performant. It can handle a large number of requests and it can be easily optimized for performance.
-- **Security**: The app is designed to be secure. It can handle a large number of requests and it can be easily secured.
-- **Cost**: The app is designed to be cost-effective. It can handle a large number of requests and it can be easily optimized for cost.
-- **Flexibility**: The app is designed to be flexible. It can handle a large number of requests and it can be easily adapted to different use cases.
-- **Maintainability**: The app is designed to be maintainable. It can handle a large number of requests and it can be easily maintained.
-- **Usability**: The app is designed to be usable. It can handle a large number of requests and it can be easily used.
-- **Accessibility**: The app is designed to be accessible. It can handle a large number of requests and it can be easily accessed.
-- **Interoperability**: The app is designed to be interoperable. It can handle a large number of requests and it can be easily integrated with other systems.
+- **Simplicity**: The app is simple. It is easy to understand and maintain.
+- **Cost**: The app is cheap. It is easy to optimize for cost.
+- **Performance**: The app is fast. It is easy to optimize for performance.
+- **Scalability**: The app is easy to scale. It is easy to handle a large number of requests.
+- **Logging**: The app is easy to monitor. It is easy to recover from failures.
+- **CI/CD**: The app is easy to deploy, and to synchronize the infrastructure with the code.
 
 ### Weaknesses
 
-- **Complexity**: The app is complex. It can be difficult to understand and maintain.
-- **Cost**: The app can be expensive. It can be difficult to optimize for cost.
-- **Performance**: The app can be slow. It can be difficult to optimize for performance.
-- **Scalability**: The app can be difficult to scale. It can be difficult to handle a large number of requests.
-- **Reliability**: The app can be unreliable. It can be difficult to recover from failures.
+- **User interface**: This is simply an API service, no user interface is implemented.
+- **Security**: No security is implemented. It is easy to add security features.
+- **Error handling**: No error handling is implemented.
+- **Testing**: Testing layer is very simple, and code coverage is not 100%.
+- **Documentation**: Auto-generated documentation is not available. It would be very simple to add shpinx or mkdocs.

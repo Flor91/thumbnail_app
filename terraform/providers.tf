@@ -6,11 +6,11 @@ terraform {
     }
   }
 
-   backend "s3" {
-     bucket = "terraform-remote-state-bucket"
-     key    = "thumbnails/terraform.tfstate"
-     region = "east-us-1"
- }
+  backend "s3" {
+    bucket = "terraform-remote-state-bucket"
+    key    = "thumbnails/terraform.tfstate"
+    region = "east-us-1"
+  }
 }
 
 provider "aws" {

@@ -20,6 +20,27 @@ help:
 	} \
 	{ helpMsg = $$0 }' $(MAKEFILE_LIST) | column -t -s ':'
 
+setup: ## Setup project
+	@echo "Setting up project..."
+	@echo "Installing Terraform..."
+	@brew install terraform
+	@echo "Installing AWS CLI..."
+	@brew install awscli
+	@echo "Installing AWS SAM CLI..."
+	@brew tap aws/tap
+	@brew install aws-sam-cli
+	@echo "Installing poetry..."
+	@brew install poetry
+	@echo "Installing pre-commit..."
+	@brew install pre-commit
+	@echo "Installing pre-commit hooks..."
+	@pre-commit install
+	@echo "Project setup complete!"
+
+create-virtualenv: ## Create virtual environment
+	@echo "Creating virtual environment..."
+	poetry install
+
 create-target-dir: ## Delete and create target directory
 	@echo "Deleting and creating target directory..."
 	rm -rf target
