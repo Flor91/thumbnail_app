@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "thumbnail-app"
+version = "0.1.0"
+description = "Thumbnail generator app - Input a big picture and get a small picture as output"
+authors = ["Florencia Silvestre <florsilvestre91@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pillow = "^10.2.0"
+pytest = "^8.0.1"
+requests = "^2.31.0"
+pyperclip = "^1.8.2"
+pre-commit = "^3.6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
