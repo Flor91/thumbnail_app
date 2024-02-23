@@ -1,21 +1,21 @@
-name: Deploy Dev Infrastructure
+name: Deploy Prod Infrastructure
 
 on:
-  push:
-    branches:
-      - master
-
+  workflow_dispatch:
 jobs:
   tf_fmt:
-    name: Deploy Site
+    name: Deploy Prod App
     runs-on: ubuntu-latest
     steps:
 
     - name: Checkout Repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
 
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/init@v0.4.0
+      with:
+        tf_actions_working_dir: 'terraform'
+        args: '-var-file="environments/prod.tfvars"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TF_ACTION_WORKING_DIR: 'terraform'
@@ -24,20 +24,17 @@ jobs:
 
     - name: Terraform Validate
       uses: hashicorp/terraform-github-actions/validate@v0.3.7
+      with:
+        tf_actions_working_dir: 'terraform'
+        args: '-var-file="environments/prod.tfvars"'
 
     - name: Terraform Apply
       uses: hashicorp/terraform-github-actions/apply@v0.4.0
+      with:
+        tf_actions_working_dir: 'terraform'
+        args: '-var-file="environments/prod.tfvars"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TF_ACTION_WORKING_DIR: 'terraform'
         AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    - name: Sync S3
-      uses: jakejarvis/s3-sync-action@master
-      env:
-        SOURCE_DIR: './src'
-        AWS_REGION: 'us-east-1'
-        AWS_S3_BUCKET: '[BUCKET_NAME_HERE]'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
